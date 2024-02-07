@@ -4,7 +4,7 @@ import { ShopContext } from '../../Contexts/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 const CartItems = () => {
-    const {all_product,cartItems,removeFromCart} = useContext(ShopContext);
+    const {getTotalCartAmount,all_product,cartItems,removeFromCart} = useContext(ShopContext);
   return (
     <div className='cartitems'>
       <div className="cartitems-format-main">
@@ -26,13 +26,43 @@ const CartItems = () => {
                             <p>${e.new_price}</p>
                             <button className="cartitems-quantity">{cartItems[e.id]}</button>
                             <p>{e.new_price*cartItems[e.id]}</p>
-                            <img src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt="" />
+                            <img className='carticons-remove-icon' src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt="" />
                         </div>
                         <hr />
                     </div>
 
         }
+        return null;
       })}
+      <div className="cartitems-down">
+        <div className="cartitems-total">
+          <h1>Cart Totals</h1>
+          <div>
+            <div className="cartitems-total-item">
+              <p>Subtotal</p>
+              <p>${getTotalCartAmount()}</p>
+            </div>
+            <hr />
+            <div className="cartitems-total-item">
+              <p>Shipping Fee</p>
+              <p>Free</p>
+            </div>
+            <hr />
+            <div className="cartitems-total-item">
+              <p>Total</p>
+              <p>${getTotalCartAmount()}</p>
+            </div>
+          </div>
+          <button>PROCEED TO CHECKOUT</button>
+        </div>
+        <div className="cartitems-promocode">
+          <p>If you have a promocode, Enter it here</p>
+          <div className="cartitems-promobox">
+            <input type="text" placeholder='promo code'/>
+            <button>Submit</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
